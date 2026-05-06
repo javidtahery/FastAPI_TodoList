@@ -213,8 +213,59 @@
         });
     }
 
+    // AI Assist JS
+    const aiAssistBtn = document.getElementById('ai-assist-btn');
 
+    if (aiAssistBtn) {
+        aiAssistBtn.addEventListener('click', async function () {
 
+            try {
+                const token = getCookie('access_token');
+
+                const response = await fetch('/AI/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+
+                    const data = await response.json();
+                    const selectedId = data.selected_id;
+                    const reason = data.reason;
+
+                    const rows = document.querySelectorAll('.todo-row');
+
+                    rows.forEach(row => {
+                        // remove highlight from all rows first
+                        row.classList.remove('ai-highlight');
+                        row.removeAttribute('title');
+
+                        // then apply highlight to the selected one
+                        if (row.dataset.id == selectedId) {
+                            row.classList.add('ai-highlight');
+                            // row.title = reason;
+                        }
+                    });
+
+                    // Update reason box
+                    const reasonBox = document.getElementById('ai-reason-box');
+                    reasonBox.style.display = 'block';
+                    reasonBox.textContent = reason;
+
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.detail}`);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('AI Assist failed.');
+            }
+
+        });
+    }
 
 
     // Helper function to get a cookie by name

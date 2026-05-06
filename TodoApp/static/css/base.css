@@ -17,6 +17,10 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: line-through;
 }
 
+.ai-highlight {
+    background-color: #ffe066 !important;
+}
+
 /* h1 {
   color: red;
 } */

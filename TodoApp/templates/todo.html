@@ -23,7 +23,7 @@
         <tbody>
         {% for todo in todos %}
         {% if todo.complete == False %}
-        <tr class="pointer">
+        <tr class="pointer todo-row" data-id="{{todo.id}}">
           <td>{{loop.index}}</td>
           <td>{{todo.title}}</td>
           <td>
@@ -33,7 +33,7 @@
           </td>
         </tr>
         {% else %}
-        <tr class="pointer alert alert-success">
+        <tr class="pointer todo-row alert alert-success" data-id="{{todo.id}}">
           <td>{{loop.index}}</td>
           <td class="strike-through-td">{{todo.title}}</td>
           <td>
@@ -48,6 +48,10 @@
         </tbody>
       </table>
       <a href="add-todo-page" class="btn btn-primary">Add a new todo!</a>
+      <button id="ai-assist-btn" class="btn btn-warning">AI Assist</button>
+      <div id="ai-reason-box"
+        style="display:none; margin-top:15px; padding:10px; background:#f0f8ff; border-left:4px solid #007bff;">
+      </div>
     </div>
   </div>
 </div>
